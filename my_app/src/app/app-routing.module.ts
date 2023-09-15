@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MyInputComponentComponent } from 'src/my-input-component/my-input-component/my-input-component.component';
+import { MyInputComponentComponent } from './my-input-component/my-input-component/my-input-component.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MyInputComponentComponent,
+    component: AppComponent,
   },
   {
     path: 'input',
