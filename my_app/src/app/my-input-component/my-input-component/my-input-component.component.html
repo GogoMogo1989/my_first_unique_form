@@ -1,4 +1,9 @@
 <div class="input-container">
-  <input type="text" (input)="onInputChange()" />
+  <input
+    type="text"
+    [(ngModel)]="value"
+    (ngModelChange)="updateValue()"
+    placeholder="{{ placeholder }}"
+  />
   <span class="clear-icon" (click)="clearInput()">x</span>
 </div>

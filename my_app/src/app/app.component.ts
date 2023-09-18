@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,19 +7,20 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  myForm: FormGroup;
+  myForm: FormGroup | undefined;
   showSavedValues: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
     this.myForm = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      nickName: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      nickName: ['', Validators.maxLength(10)],
     });
   }
 
   saveForm() {
-    console.log(this.myForm.value);
-    this.showSavedValues = true;
+    if (this.myForm?.valid) {
+      this.showSavedValues = true;
+    }
   }
 }

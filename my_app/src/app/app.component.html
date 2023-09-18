@@ -1,22 +1,26 @@
-<form [formGroup]="myForm">
-  <my-input-component
-    type="text"
-    formControlName="firstName"
-  ></my-input-component>
-  <my-input-component
-    type="text"
-    formControlName="lastName"
-  ></my-input-component>
-  <my-input-component
-    type="text"
-    formControlName="nickName"
-  ></my-input-component>
-  <button (click)="saveForm()">Mentés</button>
-</form>
+<div *ngIf="myForm">
+  <form [formGroup]="myForm">
+    <myInput formControlName="lastName" [placeholder]="'Last Name'"> </myInput>
+    <div *ngIf="myForm.get('lastName')?.invalid" class="error">
+      Vezetéknév kötelező
+    </div>
+
+    <myInput formControlName="firstName" [placeholder]="'First Name'"></myInput>
+    <div *ngIf="myForm.get('firstName')?.invalid" class="error">
+      Keresztnév kötelező
+    </div>
+    <myInput formControlName="nickName" [placeholder]="'Nick Name'"></myInput>
+    <div *ngIf="myForm.get('nickName')?.invalid" class="error">
+      A beírt szöveg túllépi a maximális hosszt (maximum 10 karakter).
+    </div>
+
+    <button [disabled]="!myForm.valid" (click)="saveForm()">Mentés</button>
+  </form>
+</div>
 
 <div *ngIf="showSavedValues">
   <h3>Mentett értékek:</h3>
-  <p>Vezetéknév: {{ myForm.get("lastName")?.value }}</p>
-  <p>Keresztnév: {{ myForm.get("firstName")?.value }}</p>
-  <p>Email: {{ myForm.get("email")?.value }}</p>
+  <p>Vezetéknév: {{ myForm?.get("lastName")?.value }}</p>
+  <p>Keresztnév: {{ myForm?.get("firstName")?.value }}</p>
+  <p>Nick neve: {{ myForm?.get("nickName")?.value }}</p>
 </div>
