@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiCallServicesComponent {
+export class ApiCallService {
   private fixedData = [
     { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
     { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' },

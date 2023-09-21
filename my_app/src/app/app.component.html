@@ -23,9 +23,9 @@
     />
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
-        *ngFor="let email of autoCompleteDatas$ | async"
-        [value]="email.name"
-        >{{ email.name }}
+        *ngFor="let name of autoCompleteDatas$ | async"
+        [value]="name.first_name"
+        >{{ name.first_name }}
       </mat-option>
     </mat-autocomplete>
 
