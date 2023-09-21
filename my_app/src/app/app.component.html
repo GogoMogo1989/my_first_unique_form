@@ -13,6 +13,21 @@
     <div *ngIf="myForm.get('nickName')?.invalid" class="error">
       A beírt szöveg túllépi a maximális hosszt (maximum 10 karakter).
     </div>
+    <input
+      type="text"
+      aria-label="Text"
+      [placeholder]="'name'"
+      matInput
+      formControlName="name"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let email of autoCompleteDatas$ | async"
+        [value]="email.first_name"
+        >{{ email.first_name }}
+      </mat-option>
+    </mat-autocomplete>
 
     <button [disabled]="!myForm.valid" (click)="saveForm()">Mentés</button>
   </form>
@@ -23,4 +38,5 @@
   <p>Vezetéknév: {{ myForm?.get("lastName")?.value }}</p>
   <p>Keresztnév: {{ myForm?.get("firstName")?.value }}</p>
   <p>Nick neve: {{ myForm?.get("nickName")?.value }}</p>
+  <p>Email: {{ myForm?.get("name")?.value }}</p>
 </div>
