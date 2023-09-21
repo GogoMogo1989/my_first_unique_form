@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   myForm: FormGroup | undefined;
   showSavedValues: boolean = false;
   autoCompleteDatas$: Observable<any> | undefined;
-  private apiUrl = 'https://restcountries.com/v3.1/all';
 
   constructor(
     private formBuilder: FormBuilder,
