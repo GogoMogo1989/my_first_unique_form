@@ -8,14 +8,9 @@ import { AppComponent } from './app.component';
 import { MyInputComponentComponent } from './my-input-component/my-input-component/my-input-component.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ApiCallServicesComponent } from './api-call-services/api-call-services/api-call-services.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MyInputComponentComponent,
-    ApiCallServicesComponent,
-  ],
+  declarations: [AppComponent, MyInputComponentComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,7 +20,7 @@ import { ApiCallServicesComponent } from './api-call-services/api-call-services/
     MatAutocompleteModule,
     HttpClientModule,
   ],
-  providers: [ApiCallServicesComponent],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

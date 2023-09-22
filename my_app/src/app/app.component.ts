@@ -3,13 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Observable,
   debounceTime,
-  distinct,
   distinctUntilChanged,
   map,
   startWith,
   switchMap,
 } from 'rxjs';
-import { ApiCallServicesComponent } from './api-call-services/api-call-services/api-call-services.component';
+import { ApiCallService } from './api-call-services/api-call-service';
 
 @Component({
   selector: 'app-root',
@@ -23,26 +22,26 @@ export class AppComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiCallServicesComponent: ApiCallServicesComponent
+    private apiCallService: ApiCallService
   ) {
     this.myForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       nickName: ['', Validators.maxLength(10)],
-      name: [''],
+      email: [''],
     });
   }
 
   ngOnInit(): void {
-    this.autoCompleteDatas$ = this.myForm?.get('name')?.valueChanges.pipe(
+    this.autoCompleteDatas$ = this.myForm?.get('email')?.valueChanges.pipe(
       startWith(''),
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((value) => {
-        return this.apiCallServicesComponent.getUsersData().pipe(
+        return this.apiCallService.getUsersData().pipe(
           map((resp) => {
-            return resp.filter((nameData) =>
-              nameData.first_name.toLowerCase().includes(value.toLowerCase())
+            return resp.filter((emailData) =>
+              emailData.email.toLowerCase().includes(value.toLowerCase())
             );
           })
         );

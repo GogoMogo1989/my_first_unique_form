@@ -1,4 +1,4 @@
-<div *ngIf="myForm">
+<div *ngIf="myForm" class="body">
   <form [formGroup]="myForm">
     <myInput formControlName="lastName" [placeholder]="'Last Name'"> </myInput>
     <div *ngIf="myForm.get('lastName')?.invalid" class="error">
@@ -16,16 +16,16 @@
     <input
       type="text"
       aria-label="Text"
-      [placeholder]="'name'"
+      [placeholder]="'email'"
       matInput
-      formControlName="name"
+      formControlName="email"
       [matAutocomplete]="auto"
     />
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
-        *ngFor="let name of autoCompleteDatas$ | async"
-        [value]="name.first_name"
-        >{{ name.first_name }}
+        *ngFor="let email of autoCompleteDatas$ | async"
+        [value]="email.email"
+        >{{ email.email }}
       </mat-option>
     </mat-autocomplete>
 
@@ -33,10 +33,10 @@
   </form>
 </div>
 
-<div *ngIf="showSavedValues">
-  <h3>Mentett értékek:</h3>
+<div *ngIf="showSavedValues" class="savedContent">
+  <h2>Mentett értékek</h2>
   <p>Vezetéknév: {{ myForm?.get("lastName")?.value }}</p>
   <p>Keresztnév: {{ myForm?.get("firstName")?.value }}</p>
   <p>Nick neve: {{ myForm?.get("nickName")?.value }}</p>
-  <p>Email: {{ myForm?.get("name")?.value }}</p>
+  <p>Email: {{ myForm?.get("email")?.value }}</p>
 </div>
