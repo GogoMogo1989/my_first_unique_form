@@ -28,7 +28,9 @@ export class AppComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       nickName: ['', Validators.maxLength(10)],
-      email: [''],
+      email: ['', Validators.required],
+      startDate: [Date, Validators.required],
+      endDate: [Date, Validators.required],
     });
   }
 
@@ -49,9 +51,32 @@ export class AppComponent implements OnInit {
     );
   }
 
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${month < 10 ? '0' : ''}${month}-${
+      day < 10 ? '0' : ''
+    }${day}`;
+  }
+
   saveForm() {
     if (this.myForm?.valid) {
-      this.showSavedValues = true;
+      const startDateValue = this.myForm.get('startDate')?.value;
+      const endDateValue = this.myForm.get('endDate')?.value;
+
+      if (startDateValue && endDateValue) {
+        const startDate = new Date(startDateValue);
+        const endDate = new Date(endDateValue);
+
+        const formattedStartDate = this.formatDate(startDate);
+        const formattedEndDate = this.formatDate(endDate);
+
+        this.myForm.get('startDate')?.setValue(formattedStartDate);
+        this.myForm.get('endDate')?.setValue(formattedEndDate);
+
+        this.showSavedValues = true;
+      }
     }
   }
 }

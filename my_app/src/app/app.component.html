@@ -1,26 +1,28 @@
 <div *ngIf="myForm" class="body">
   <form [formGroup]="myForm">
-    <myInput formControlName="lastName" [placeholder]="'Last Name'"> </myInput>
+    <h2>Kérlek tölsd ki az űrlapot!</h2>
+    <myInput formControlName="lastName" [placeholder]="'Vezetéknév'"> </myInput>
     <div *ngIf="myForm.get('lastName')?.invalid" class="error">
       Vezetéknév kötelező
     </div>
 
-    <myInput formControlName="firstName" [placeholder]="'First Name'"></myInput>
+    <myInput formControlName="firstName" [placeholder]="'Keresztnév'"></myInput>
     <div *ngIf="myForm.get('firstName')?.invalid" class="error">
       Keresztnév kötelező
     </div>
-    <myInput formControlName="nickName" [placeholder]="'Nick Name'"></myInput>
+    <myInput formControlName="nickName" [placeholder]="'Becenév'"></myInput>
     <div *ngIf="myForm.get('nickName')?.invalid" class="error">
       A beírt szöveg túllépi a maximális hosszt (maximum 10 karakter).
     </div>
     <input
       type="text"
       aria-label="Text"
-      [placeholder]="'email'"
+      [placeholder]="'Email'"
       matInput
       formControlName="email"
       [matAutocomplete]="auto"
     />
+
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
         *ngFor="let email of autoCompleteDatas$ | async"
@@ -28,15 +30,40 @@
         >{{ email.email }}
       </mat-option>
     </mat-autocomplete>
+    <div *ngIf="myForm.get('email')?.invalid" class="error">
+      Kérlek válassz az email címek közül.
+    </div>
+
+    <mat-form-field>
+      <mat-label>Adja meg a dátumtartományt</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="startDate"
+        />
+        <input matEndDate placeholder="End date" formControlName="endDate" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
 
     <button [disabled]="!myForm.valid" (click)="saveForm()">Mentés</button>
   </form>
 </div>
 
 <div *ngIf="showSavedValues" class="savedContent">
-  <h2>Mentett értékek</h2>
+  <h2>Űrlap értékek</h2>
   <p>Vezetéknév: {{ myForm?.get("lastName")?.value }}</p>
   <p>Keresztnév: {{ myForm?.get("firstName")?.value }}</p>
-  <p>Nick neve: {{ myForm?.get("nickName")?.value }}</p>
+  <p>Becenév: {{ myForm?.get("nickName")?.value }}</p>
   <p>Email: {{ myForm?.get("email")?.value }}</p>
+  <p>
+    Dátum tartomány: {{ myForm?.get("startDate")?.value }}-tól
+    {{ myForm?.get("endDate")?.value }}-ig
+  </p>
 </div>
